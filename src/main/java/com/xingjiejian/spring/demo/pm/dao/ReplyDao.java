@@ -1,12 +1,14 @@
 package com.xingjiejian.spring.demo.pm.dao;
 
+import com.xingjiejian.spring.demo.pm.entity.Reply;
+
 import java.util.List;
 
 /**
  * 回帖Dao操作接口
  * @author Xing.Jiejian
  */
-public interface Reply {
+public interface ReplyDao {
     /**
      * 新增回复
      * @param reply
