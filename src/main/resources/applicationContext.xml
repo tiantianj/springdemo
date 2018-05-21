@@ -3,22 +3,32 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
 
+    <!--扫描指定包中的中的注解，识别Spring中的Bean-->
     <context:component-scan base-package="com.xingjiejian.spring.demo.pm"></context:component-scan>
 
+    <!--引入Properties文件-->
+    <context:property-placeholder location="classpath:db.properties"/>
+
     <!--配置数据源-->
-    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
-          p:driverClassName="com.mysql.jdbc.Driver"
-          p:url="jdbc:mysql://localhost:3306/pm?useSSL=false"
-          p:username="root"
-          p:password="root"
-          p:initialSize="5"
-          p:maxIdle="5"
-          p:maxWaitMillis="10000"></bean>
+    <bean id="dataSource" class="${dateSourceClass}"
+          p:driverClassName="${mysql.driverClassName}"
+          p:url="${mysql.url}"
+          p:username="${mysql.username}"
+          p:password="${mysql.password}"
+          p:initialSize="${initialSize}"
+          p:maxIdle="${maxIdle}"
+          p:maxWaitMillis="${maxWaitMillis}"></bean>
 
     <!--配置JDBC模板-->
     <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
@@ -28,4 +38,25 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
+
+    <!--声明式事务处理-->
+    <!--事务管理类-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!--不同方法的事务处理策略-->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <!---->
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" propagation="NEVER"/>
+            <tx:method name="set*" propagation="NEVER"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--aop配置事务切面-->
+    <aop:config>
+        <aop:pointcut id="txPointcut" expression="execution(* com.xingjiejian.spring.demo.pm.service.impl.*.*(..))"/>
+        <!-- 事务使用默认前置增强处理 -->
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
 </beans>
