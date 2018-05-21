@@ -28,9 +28,9 @@
     - c3p0
 
 ### 使用JDBC模板
--JdbcTemplate：简单的JDBC数据库访问和基于索引(?)参数的查询
+- JdbcTemplate：简单的JDBC数据库访问和基于索引(?)参数的查询
     - query() 查询获取集合对象
     - queryForObject() 查询获取单个对象
     - update() 执行增删改语句
     - 注意：查询相关操作需要传入映射解析逻辑RowMap<T>的实现
--NamedParameterJdbcTemplate：增加基于命名参数的查询
+- NamedParameterJdbcTemplate：增加基于命名参数的查询
