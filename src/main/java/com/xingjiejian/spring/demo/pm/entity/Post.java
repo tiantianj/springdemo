@@ -28,6 +28,17 @@ public class Post {
      */
     private Date createDate;
 
+    public Post() {
+    }
+
+    public Post(Integer id, String title, String summary, String author, Date createDate) {
+        this.id = id;
+        this.title = title;
+        this.summary = summary;
+        this.author = author;
+        this.createDate = createDate;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -66,5 +77,16 @@ public class Post {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", summary='" + summary + '\'' +
+                ", author='" + author + '\'' +
+                ", createDate=" + createDate +
+                '}';
     }
 }

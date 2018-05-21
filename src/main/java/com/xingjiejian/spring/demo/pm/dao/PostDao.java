@@ -1,6 +1,7 @@
 package com.xingjiejian.spring.demo.pm.dao;
 
 import com.xingjiejian.spring.demo.pm.entity.Post;
+import javafx.geometry.Pos;
 
 import java.util.List;
 
@@ -21,5 +22,12 @@ public interface PostDao {
      * @return
      */
     List<Post> findByLikeTitle(String likeTitle);
+
+    /**
+     * 保存帖子
+     * @param post
+     * @return
+     */
+    int save(Post post);
 }
 

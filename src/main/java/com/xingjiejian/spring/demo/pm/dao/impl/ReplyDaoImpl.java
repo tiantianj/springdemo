@@ -1,25 +1,59 @@
 package com.xingjiejian.spring.demo.pm.dao.impl;
 
 import com.xingjiejian.spring.demo.pm.dao.ReplyDao;
+import com.xingjiejian.spring.demo.pm.entity.Post;
 import com.xingjiejian.spring.demo.pm.entity.Reply;
+import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+import javax.inject.Inject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
  * 回帖相关数据库操作实现类
  * @author
  */
-@Component
+@Repository
 public class ReplyDaoImpl implements ReplyDao {
+
+    private JdbcOperations jdbcOperations;
+
+    @Inject
+    public ReplyDaoImpl(JdbcOperations jdbcOperations) {
+        this.jdbcOperations = jdbcOperations;
+    }
+
     @Override
     public void save(Reply reply) {
-        System.out.println("ReplyDaoImpl-save()");
+        String sql = "INSERT INTO reply(postId,content,author) VALUES (?,?,?)";
+        Object[] params = {reply.getPostId(),reply.getContent(),reply.getAuthor()};
+        jdbcOperations.update(sql,params);
     }
 
     @Override
     public List<Reply> findByPostId(int postId) {
-        System.out.println("ReplyDaoImpl-findByPostId()");
-        return null;
+        String sql = "SELECT * FROM reply WHERE postId=?";
+        //this::mapRow 使用Java 8 中的Lambda表达式实现——方法引用
+        return jdbcOperations.query(sql,this::mapRow,postId);
+    }
+
+    /**
+     * 在单独的方法中定义映射逻辑
+     * @param rs
+     * @param rowNum
+     * @return
+     * @throws SQLException
+     */
+    private Reply mapRow(ResultSet rs, int rowNum) throws SQLException {
+        return new Reply(
+                rs.getInt("id"),
+                rs.getInt("postId"),
+                rs.getString("content"),
+                rs.getString("author"),
+                rs.getTimestamp("createDate")
+        );
     }
 }

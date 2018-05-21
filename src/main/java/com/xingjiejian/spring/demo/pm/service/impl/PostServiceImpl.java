@@ -22,6 +22,11 @@ public class PostServiceImpl implements PostService {
     private ReplyDao replyDao;
 
     @Override
+    public int addPost(Post post) {
+        return postDao.save(post);
+    }
+
+    @Override
     public List<Post> findPosts() {
         return postDao.findAll();
     }

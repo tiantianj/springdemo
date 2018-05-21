@@ -10,6 +10,13 @@ import java.util.List;
  */
 public interface PostService {
     /**
+     * 发帖
+     * @param post
+     * @return
+     */
+    int addPost(Post post);
+
+    /**
      * 查询帖子集合
      * @return 名称为空或者空字符串时，返回所有帖子集合
      */

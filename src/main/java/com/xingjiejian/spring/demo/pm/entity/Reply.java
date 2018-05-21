@@ -28,6 +28,25 @@ public class Reply {
      */
     private Date createDate;
 
+
+    public Reply() {
+    }
+
+    public Reply(Integer postId, String content, String author, Date createDate) {
+        this.postId = postId;
+        this.content = content;
+        this.author = author;
+        this.createDate = createDate;
+    }
+
+    public Reply(Integer id, Integer postId, String content, String author, Date createDate) {
+        this.id = id;
+        this.postId = postId;
+        this.content = content;
+        this.author = author;
+        this.createDate = createDate;
+    }
+
     public Integer getId() {
         return id;
     }
