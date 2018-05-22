@@ -103,9 +103,9 @@
     <root level="DEBUG">
         <!-- appender-ref标识这个appender将会添加到本应用的日志系统中 -->
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="INFO"/>
-        <appender-ref ref="DEBUG"/>
-        <appender-ref ref="ERROR"/>
+        <!--<appender-ref ref="INFO"/>-->
+        <!--<appender-ref ref="DEBUG"/>-->
+        <!--<appender-ref ref="ERROR"/>-->
     </root>
 
 

@@ -51,6 +51,7 @@
             <tx:method name="find*" read-only="true"/>
             <tx:method name="get*" propagation="NEVER"/>
             <tx:method name="set*" propagation="NEVER"/>
+            <tx:method name="*" isolation="DEFAULT" propagation="REQUIRED" read-only="false" />
         </tx:attributes>
     </tx:advice>
     <!--aop配置事务切面-->

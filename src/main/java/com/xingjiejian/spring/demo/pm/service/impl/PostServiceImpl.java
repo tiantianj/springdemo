@@ -5,6 +5,8 @@ import com.xingjiejian.spring.demo.pm.dao.ReplyDao;
 import com.xingjiejian.spring.demo.pm.entity.Post;
 import com.xingjiejian.spring.demo.pm.entity.Reply;
 import com.xingjiejian.spring.demo.pm.service.PostService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,8 @@ public class PostServiceImpl implements PostService {
     private PostDao postDao;
     @Autowired
     private ReplyDao replyDao;
+
+    private static Logger logger = LoggerFactory.getLogger(PostServiceImpl.class);
 
     @Override
     public int addPost(Post post) {
@@ -42,6 +46,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public boolean addReply(Reply reply) {
         replyDao.save(reply);
+        logger.info("保存回帖信息");
         return true;
     }
 
