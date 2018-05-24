@@ -40,6 +40,12 @@ public class ReplyDaoImpl implements ReplyDao {
         return jdbcOperations.query(sql,this::mapRow,postId);
     }
 
+    @Override
+    public Reply findById(int id) {
+        String sql = "SELECT * FROM reply WHERE id=?";
+        return jdbcOperations.queryForObject(sql,this::mapRow ,id);
+    }
+
     /**
      * 在单独的方法中定义映射逻辑
      * @param rs

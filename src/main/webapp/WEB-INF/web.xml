@@ -31,4 +31,22 @@
         <!--表示将所有的请求"/"都发送给DispatcherServlet处理-->
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <!--
+        Spring提供的解决POST请求乱码的过滤器
+        如果是GET请求的乱码，去修改Tomcat的配置文件，对应的端口号设置URIEncoding="utf-8"
+    -->
+    <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 </web-app>

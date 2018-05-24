@@ -42,4 +42,6 @@ public interface PostService {
      * @return
      */
     List<Reply> findReplyByPostId(int postId);
+
+    Reply findReplyById(int id);
 }

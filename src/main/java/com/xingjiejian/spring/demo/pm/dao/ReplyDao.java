@@ -21,4 +21,11 @@ public interface ReplyDao {
      * @return
      */
     List<Reply> findByPostId(int postId);
+
+    /**
+     * 查询回帖
+     * @param id
+     * @return
+     */
+    Reply findById(int id);
 }

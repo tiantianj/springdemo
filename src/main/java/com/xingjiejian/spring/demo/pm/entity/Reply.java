@@ -1,5 +1,7 @@
 package com.xingjiejian.spring.demo.pm.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
@@ -17,11 +19,16 @@ public class Reply {
     private Integer postId;
     /**
      * 回复内容
+     * 设置字段不能为空，最少5个字符
      */
+    @NotNull
     private String content;
     /**
      * 作者
+     * 不能为空，且长度在2-5个字符之间
      */
+    @NotNull
+    @Size(min = 2,max = 5,message = "{author.size}")
     private String author;
     /**
      * 发布时间

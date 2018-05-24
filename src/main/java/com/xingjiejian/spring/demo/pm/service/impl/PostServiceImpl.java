@@ -55,6 +55,11 @@ public class PostServiceImpl implements PostService {
         return replyDao.findByPostId(postId);
     }
 
+    @Override
+    public Reply findReplyById(int id) {
+        return replyDao.findById(id);
+    }
+
 
     public PostDao getPostDao() {
         return postDao;
