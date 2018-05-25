@@ -20,9 +20,9 @@ public class PictureDaoImpl implements PictureDao {
 
     @Override
     public void save(Picture p) {
-        String sql = "INSERT INTO picture(id,name,url) VALUES(?,?,?)";
-        Object[] params = {p.getId(),p.getName(),p.getUrl()};
-        jdbcOperations.update(sql);
+        String sql = "INSERT INTO picture(name,url) VALUES(?,?)";
+        Object[] params = {p.getName(),p.getUrl()};
+        jdbcOperations.update(sql,params);
     }
 
     @Override

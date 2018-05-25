@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -81,7 +82,9 @@ public class ReplyController {
             @Valid Reply reply,
             //在前一个对象校验不通过时，获取相关信息
             Errors errors,
-            @PathVariable int postId){
+            @PathVariable int postId,
+            HttpSession session){
+
         //如果校验出现错误，则重新返回表单
         if(errors.hasErrors()){
             return "reply";

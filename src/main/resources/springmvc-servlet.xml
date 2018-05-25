@@ -20,8 +20,34 @@
          <property name="exposeContextBeansAsAttributes" value="true"/>
      </bean>
 
+
+    <mvc:annotation-driven>
+        <!--
+            设置相应的JSON数据的编码
+            该模式解决乱码，必须要求请求头accept必须是application/json
+        -->
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
     <!--解除Spring MVC对静态资源文件的拦截-->
-    <mvc:annotation-driven/>
+    <mvc:resources mapping="/css/**" location="/css/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>
+    <mvc:resources mapping="/upload/**" location="/upload/"/>
+
+    <!--声明文件上传的解析器
+        常用的解析器有两种：
+        1)StandardServletMultipartResolver:依赖于Servlet 3.0对multipart的支持
+        2)CommonsMultipartResolver：使用Apache Commons FileUpload来解析multipart请求
+    -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+    </bean>
 
 </beans>

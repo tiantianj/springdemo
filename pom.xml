@@ -68,6 +68,13 @@
             <version>1.1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.47</version>
+        </dependency>
+
+
         <!--Java Bean Validator 实现 JSR-380-->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
