@@ -26,7 +26,7 @@ public class PostServiceImplTest {
     @Test
     public void test(){
         List<Post> posts = postService.findPosts();
-        assertEquals(1,posts.size());
+        assertEquals(10,posts.size());
         System.out.println(posts.get(0));
     }
 

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author Xing.Jiejian
  */
-@Repository
+//@Repository
 public class PictureDaoImpl implements PictureDao {
     @Autowired
     private JdbcOperations jdbcOperations;

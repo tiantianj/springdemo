@@ -16,7 +16,7 @@ import java.util.List;
  * 回帖相关数据库操作实现类
  * @author
  */
-@Repository
+//@Repository
 public class ReplyDaoImpl implements ReplyDao {
 
     private JdbcOperations jdbcOperations;

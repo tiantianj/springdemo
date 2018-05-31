@@ -2,6 +2,7 @@ package com.xingjiejian.spring.demo.pm.dao;
 
 import com.xingjiejian.spring.demo.pm.entity.Post;
 import javafx.geometry.Pos;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface PostDao {
      * @param likeTitle 标题(模糊查询)
      * @return
      */
-    List<Post> findByLikeTitle(String likeTitle);
+    List<Post> findByLikeTitle(@Param("likeTitle") String likeTitle);
 
     /**
      * 保存帖子

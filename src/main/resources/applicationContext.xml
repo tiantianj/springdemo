@@ -31,12 +31,37 @@
           p:maxWaitMillis="${maxWaitMillis}"></bean>
 
     <!--配置JDBC模板-->
-    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"></constructor-arg>
+    <!--<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+        <!--<constructor-arg ref="dataSource"></constructor-arg>-->
+    <!--</bean>-->
+
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<property name="dataSource" ref="dataSource"></property>-->
+    <!--</bean>-->
+
+    <!--使用Spring整合Mybatis（Spring来创建管理Mybatis中的对象）
+        1)可以直接不使用Mybatis的配置文件，将相关的配置信息直接配置在当前的bean中
+        2)也可以使用configLocation属性，将原始的Mybatis配置文件直接导入当前的bean
+    -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--注入映射文件,自动将java源代码目录下的mapper文件夹下的所有xml文件都声明成映射文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!--<property name="typeAliasesPackage" value="com.xingjiejian.spring.demo.pm.entity"/>-->
     </bean>
 
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"></property>
+    <!--自动扫描所有的mapper接口，创建代理类
+        自动将所有的mapper文件映射为Spring的bean对象
+        id是首字母小写形式的类型名
+    -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--使用sqlSessionFactory的beanName注入-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--指定所有接口文件所有的包-->
+        <property name="basePackage" value="com.xingjiejian.spring.demo.pm.dao"/>
     </bean>
 
     <!--声明式事务处理-->

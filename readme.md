@@ -34,3 +34,13 @@
     - update() 执行增删改语句
     - 注意：查询相关操作需要传入映射解析逻辑RowMap<T>的实现
 - NamedParameterJdbcTemplate：增加基于命名参数的查询
+
+### 使用Spring整合Mybatis(替代JDBC模板)
+1. 添加jar包
+    - Mybatis的核心包
+    - Mybatis整合Spring的包
+2. 编写对应的dao接口的映射(mapper)文件
+3. 在Spring配置文件中配置Mybatis相关对象
+    - 配置SqlSessionFactoryBean，注入数据源以及mapper文件（以及其它mybatis的配置）
+    - 配置MapperScannerConfigurer
+        - 自动扫描所有的mapper接口，spring自动创建它的实现类的SpringBean
